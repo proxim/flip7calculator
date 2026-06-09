@@ -6,7 +6,7 @@ export default function Log({ entries }) {
       <div className="log-title">Game Log</div>
       <div className="log-entries">
         {[...entries].reverse().map((entry, i) => (
-          <div key={i} className="log-entry">{entry}</div>
+          <div key={entries.length - 1 - i} className="log-entry">{entry}</div>
         ))}
       </div>
     </div>

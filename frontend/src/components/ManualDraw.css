@@ -1,0 +1,129 @@
+@keyframes mdPanelIn {
+  from { transform: translateX(-50%) translateY(12px); opacity: 0; }
+  to   { transform: translateX(-50%) translateY(0);    opacity: 1; }
+}
+
+.md-panel {
+  position: fixed;
+  bottom: 104px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99;
+  animation: mdPanelIn 0.2s cubic-bezier(0.34, 1.2, 0.64, 1);
+
+  background: #16213eee;
+  border: 1px solid #0f3460;
+  border-radius: 14px;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 8px 40px #00000099;
+  backdrop-filter: blur(10px);
+  width: 420px;
+  max-width: calc(100vw - 32px);
+}
+
+.md-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.md-title {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #666;
+  font-weight: 600;
+}
+
+.md-close {
+  background: transparent;
+  border: none;
+  color: #555;
+  font-size: 0.85rem;
+  padding: 2px 6px;
+  cursor: pointer;
+  border-radius: 4px;
+  line-height: 1;
+}
+.md-close:hover { color: #aaa; background: #0f1e3a; }
+
+.md-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.md-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #444;
+  font-weight: 600;
+}
+
+.md-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+/* Card buttons */
+.md-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+  border: none;
+  padding: 5px 4px;
+}
+.md-card:hover:not(:disabled) { transform: translateY(-2px); opacity: 0.85; }
+.md-card:active:not(:disabled) { transform: translateY(0); }
+
+.md-val {
+  font-size: 0.9rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.md-count {
+  font-size: 0.6rem;
+  font-weight: 600;
+  opacity: 0.7;
+  line-height: 1;
+}
+
+/* Number cards */
+.md-num {
+  background: #0f3460;
+  color: #e0e0e0;
+  min-width: 44px;
+  height: 44px;
+}
+
+/* Modifier cards */
+.md-mod {
+  background: #1e5c33;
+  color: #7defa1;
+  min-width: 52px;
+  height: 44px;
+}
+
+/* Action cards */
+.md-action {
+  background: #3a1f6e;
+  color: #c39bff;
+  min-width: 80px;
+  height: 44px;
+}
+
+/* Unavailable (count = 0) */
+.md-gone {
+  opacity: 0.22;
+  cursor: not-allowed;
+}

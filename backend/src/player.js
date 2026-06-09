@@ -7,6 +7,7 @@ export function createPlayer(id, name) {
     modifiers: [],          // flat modifier values (numbers) held
     hasX2: false,
     hasSecondChance: false,
+    bustCard: null,         // value of the duplicate card that caused a bust
     cumulativeScore: 0,
     heldCards: [],          // actual card objects held; moved to discardPile at round end
   };

@@ -48,11 +48,16 @@ export default function PlayerCard({ player, isCurrent, isDrawing, isValidTarget
       </div>
 
       <div className="pc-cards">
-        {player.numberCards.length === 0
+        {player.numberCards.length === 0 && player.bustCard == null
           ? <span className="pc-empty">No cards</span>
-          : player.numberCards.slice().sort((a, b) => a - b).map((v, i) => (
-              <span key={i} className="card-chip number-chip">{v}</span>
-            ))
+          : [
+              ...player.numberCards.slice().sort((a, b) => a - b).map((v, i) => (
+                <span key={`n${i}`} className="card-chip number-chip">{v}</span>
+              )),
+              player.bustCard != null && (
+                <span key="bust" className="card-chip bust-chip">{player.bustCard}</span>
+              ),
+            ]
         }
       </div>
 

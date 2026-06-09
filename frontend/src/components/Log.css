@@ -21,6 +21,11 @@
   gap: 4px;
 }
 
+@keyframes logEntryIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
 .log-entry {
   font-size: 0.82rem;
   color: #bbb;
@@ -29,4 +34,7 @@
   line-height: 1.35;
 }
 
-.log-entry:first-child { color: #e0e0e0; }
+.log-entry:first-child {
+  color: #e0e0e0;
+  animation: logEntryIn 0.22s ease-out;
+}

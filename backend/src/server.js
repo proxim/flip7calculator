@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { newGame, actionDraw, actionStop, actionApply, actionNextRound, getValidTargets } from './gameEngine.js';
+import { newGame, actionDraw, actionStop, actionApply, actionNextRound, actionManualDraw, getValidTargets } from './gameEngine.js';
 import { calcStats } from './calculator.js';
 
 const app = express();
@@ -39,6 +39,16 @@ app.post('/api/game/stop', (req, res) => {
   res.json(publicState(state));
 });
 
+app.post('/api/game/manualdraw', (req, res) => {
+  if (!state) return res.status(404).json({ error: 'No active game' });
+  const { cardSpec } = req.body;
+  if (!cardSpec) return res.status(400).json({ error: 'cardSpec required' });
+  const result = actionManualDraw(state, cardSpec);
+  if (result.error) return res.status(400).json(result);
+  state = result;
+  res.json(publicState(state));
+});
+
 app.post('/api/game/nextround', (req, res) => {
   if (!state) return res.status(404).json({ error: 'No active game' });
   const result = actionNextRound(state);
@@ -55,6 +65,18 @@ app.post('/api/game/apply', (req, res) => {
   state = result;
   res.json(publicState(state));
 });
+
+function computeDeckInventory(deck) {
+  const inv = {};
+  for (const card of deck) {
+    let key;
+    if (card.type === 'number') key = `n_${card.value}`;
+    else if (card.type === 'modifier') key = card.value === 'x2' ? 'm_x2' : `m_${card.value}`;
+    else key = `a_${card.action}`;
+    inv[key] = (inv[key] ?? 0) + 1;
+  }
+  return inv;
+}
 
 function publicState(s) {
   const drawingPlayer = s.flipThreeState
@@ -74,6 +96,7 @@ function publicState(s) {
       modifiers: p.modifiers,
       hasX2: p.hasX2,
       hasSecondChance: p.hasSecondChance,
+      bustCard: p.bustCard ?? null,
       cumulativeScore: p.cumulativeScore,
     })),
     currentPlayerIndex: s.currentPlayerIndex,
@@ -87,6 +110,7 @@ function publicState(s) {
     log: s.log.slice(-20),
     stats,
     roundSummary: s.roundSummary ?? null,
+    deckInventory: computeDeckInventory(s.deck),
   };
 }
 

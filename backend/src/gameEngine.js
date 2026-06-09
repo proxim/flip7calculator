@@ -88,7 +88,7 @@ function applyCardToPlayer(state, card, player) {
         return { busted: false, flip7: false, usedSecondChance: true };
       }
       player.status = 'busted';
-      // Cards stay with player (facedown) until round end — do NOT clear here
+      player.bustCard = card.value;
       state.log.push(`${player.name} busted on ${card.value}!`);
       return { busted: true, flip7: false };
     }
@@ -192,37 +192,9 @@ function checkRoundOver(state) {
   }
 }
 
-// ── Public actions ────────────────────────────────────────────────────────────
+// ── Card processing (shared by actionDraw and actionManualDraw) ───────────────
 
-export function actionStop(state) {
-  if (state.phase !== 'playing') return { error: 'Not in playing phase' };
-  if (state.flipThreeState) return { error: 'Cannot stop during Flip Three' };
-
-  const player = state.players[state.currentPlayerIndex];
-  if (isInactive(player)) return { error: 'Player is not active' };
-
-  player.status = 'stopped';
-  state.log.push(`${player.name} chose to stop.`);
-  checkRoundOver(state);
-  if (state.phase === 'playing') advanceTurn(state);
-  return state;
-}
-
-export function actionDraw(state) {
-  if (state.phase !== 'playing') return { error: 'Not in playing phase' };
-  if (state.pendingActionCard) return { error: 'Must resolve pending action first' };
-
-  const player = state.flipThreeState
-    ? state.players.find(p => p.id === state.flipThreeState.targetId)
-    : state.players[state.currentPlayerIndex];
-
-  if (!player || isInactive(player)) return { error: 'Player is not active' };
-  if (state.deck.length === 0 && state.discardPile.length === 0) return { error: 'No cards available' };
-
-  const card = drawCard(state);
-  if (!card) return { error: 'No cards available' };
-  state.log.push(`${player.name} drew ${cardLabel(card)}.`);
-
+function processDrawnCard(state, card, player) {
   if (card.type === 'action') {
     state.discardPile.push(card); // action cards go to discard immediately
 
@@ -234,7 +206,6 @@ export function actionDraw(state) {
         if (!player.hasSecondChance) {
           player.hasSecondChance = true;
           state.log.push(`${player.name} drew and kept Second Chance.`);
-          // auto-resolved, no deferral needed
         } else if (eligibleTargets.length === 0) {
           state.log.push(`${player.name} drew Second Chance — no eligible targets, discarded.`);
         } else {
@@ -296,15 +267,66 @@ export function actionDraw(state) {
     return state;
   }
 
-  if (result.busted || result.flip7) {
-    checkRoundOver(state);
-    if (state.phase === 'playing') advanceTurn(state);
-  } else {
-    checkRoundOver(state);
-    if (state.phase === 'playing') advanceTurn(state);
-  }
-
+  checkRoundOver(state);
+  if (state.phase === 'playing') advanceTurn(state);
   return state;
+}
+
+// ── Public actions ────────────────────────────────────────────────────────────
+
+export function actionStop(state) {
+  if (state.phase !== 'playing') return { error: 'Not in playing phase' };
+  if (state.flipThreeState) return { error: 'Cannot stop during Flip Three' };
+
+  const player = state.players[state.currentPlayerIndex];
+  if (isInactive(player)) return { error: 'Player is not active' };
+
+  player.status = 'stopped';
+  state.log.push(`${player.name} chose to stop.`);
+  checkRoundOver(state);
+  if (state.phase === 'playing') advanceTurn(state);
+  return state;
+}
+
+export function actionDraw(state) {
+  if (state.phase !== 'playing') return { error: 'Not in playing phase' };
+  if (state.pendingActionCard) return { error: 'Must resolve pending action first' };
+
+  const player = state.flipThreeState
+    ? state.players.find(p => p.id === state.flipThreeState.targetId)
+    : state.players[state.currentPlayerIndex];
+
+  if (!player || isInactive(player)) return { error: 'Player is not active' };
+  if (state.deck.length === 0 && state.discardPile.length === 0) return { error: 'No cards available' };
+
+  const card = drawCard(state);
+  if (!card) return { error: 'No cards available' };
+  state.log.push(`${player.name} drew ${cardLabel(card)}.`);
+  return processDrawnCard(state, card, player);
+}
+
+export function actionManualDraw(state, cardSpec) {
+  if (state.phase !== 'playing') return { error: 'Not in playing phase' };
+  if (state.pendingActionCard) return { error: 'Must resolve pending action first' };
+
+  const player = state.flipThreeState
+    ? state.players.find(p => p.id === state.flipThreeState.targetId)
+    : state.players[state.currentPlayerIndex];
+
+  if (!player || isInactive(player)) return { error: 'Player is not active' };
+
+  const idx = state.deck.findIndex(c => {
+    if (c.type !== cardSpec.type) return false;
+    if (c.type === 'number') return c.value === cardSpec.value;
+    if (c.type === 'modifier') return c.value === cardSpec.value;
+    if (c.type === 'action') return c.action === cardSpec.action;
+    return false;
+  });
+  if (idx === -1) return { error: 'Card not available in deck' };
+
+  const [card] = state.deck.splice(idx, 1);
+  state.log.push(`${player.name} drew ${cardLabel(card)}.`);
+  return processDrawnCard(state, card, player);
 }
 
 export function actionApply(state, targetPlayerId) {
@@ -371,6 +393,7 @@ export function actionNextRound(state) {
     p.modifiers = [];
     p.hasX2 = false;
     p.hasSecondChance = false;
+    p.bustCard = null;
     p.heldCards = [];
   }
   state.currentPlayerIndex = nextStart;

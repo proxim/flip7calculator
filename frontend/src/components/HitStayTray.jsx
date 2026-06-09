@@ -1,6 +1,6 @@
 import './HitStayTray.css';
 
-export default function HitStayTray({ gs, drawingPlayer, loading, onDraw, onStop }) {
+export default function HitStayTray({ gs, drawingPlayer, loading, onDraw, onStop, showManualDraw, onToggleManual }) {
   const { phase, flipThreeState } = gs;
   const isPlaying = phase === 'playing';
   const isAwaiting = phase === 'awaitingAction';
@@ -29,6 +29,13 @@ export default function HitStayTray({ gs, drawingPlayer, loading, onDraw, onStop
               Stay
             </button>
           )}
+          <button
+            className={`tray-btn tray-manual${showManualDraw ? ' tray-manual-active' : ''}`}
+            onClick={onToggleManual}
+            disabled={loading}
+          >
+            Manual
+          </button>
         </div>
       )}
     </div>

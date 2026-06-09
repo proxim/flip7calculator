@@ -18,4 +18,5 @@ export const api = {
   stop: () => req('/stop', 'POST'),
   apply: (targetPlayerId) => req('/apply', 'POST', { targetPlayerId }),
   nextRound: () => req('/nextround', 'POST'),
+  manualDraw: (cardSpec) => req('/manualdraw', 'POST', { cardSpec }),
 };

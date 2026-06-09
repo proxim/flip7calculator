@@ -8,12 +8,14 @@ import Leaderboard from './Leaderboard';
 import ErrorToast from './ErrorToast';
 import Log from './Log';
 import RoundSummary from './RoundSummary';
+import ManualDraw from './ManualDraw';
 import './Game.css';
 
 export default function Game({ initialState, onNewGame }) {
   const [gs, setGs] = useState(initialState);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showManualDraw, setShowManualDraw] = useState(false);
 
   const call = useCallback(async (fn) => {
     setError('');
@@ -92,7 +94,29 @@ export default function Game({ initialState, onNewGame }) {
             loading={loading}
             onDraw={() => call(() => api.draw())}
             onStop={() => call(() => api.stop())}
+            showManualDraw={showManualDraw}
+            onToggleManual={() => setShowManualDraw(v => !v)}
           />
+          {gs.phase === 'playing' && showManualDraw && (
+            <ManualDraw
+              inventory={gs.deckInventory ?? {}}
+              loading={loading}
+              onClose={() => setShowManualDraw(false)}
+              onDraw={async (cardSpec) => {
+                setError('');
+                setLoading(true);
+                try {
+                  const next = await api.manualDraw(cardSpec);
+                  setGs(next);
+                  setShowManualDraw(false);
+                } catch (e) {
+                  setError(e.message);
+                } finally {
+                  setLoading(false);
+                }
+              }}
+            />
+          )}
         </div>
 
         {/* Right sidebar: turn info + calculator */}
