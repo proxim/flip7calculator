@@ -50,7 +50,28 @@ npm install
 npm run dev
 ```
 
-Then open `http://localhost:5173` in your browser.
+Then open `http://localhost:5173` in your browser. The Vite dev server proxies `/api` requests to the backend automatically.
+
+---
+
+## Deploying for free (Render)
+
+The app runs as a single service — Express builds and serves the React app, so there is only one URL to share.
+
+1. Push this repo to GitHub (already done).
+2. Go to [render.com](https://render.com) → **New → Web Service** → connect your GitHub repo.
+3. Set the following in the Render dashboard:
+
+| Setting | Value |
+|---|---|
+| **Environment** | Node |
+| **Build command** | `npm run build` |
+| **Start command** | `npm start` |
+| **Instance type** | Free |
+
+4. Click **Deploy**. Render installs dependencies, builds the React app, and starts the server. First deploy takes ~2 minutes.
+
+> **Note:** The free tier spins down after 15 minutes of inactivity. The first request after that takes ~30 seconds to cold-start. For active play sessions this is fine — it won't spin down mid-game.
 
 ---
 

@@ -1,7 +1,11 @@
 import express from 'express';
 import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { newGame, actionDraw, actionStop, actionApply, actionNextRound, actionManualDraw, getValidTargets } from './gameEngine.js';
 import { calcStats } from './calculator.js';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 app.use(cors());
@@ -114,5 +118,10 @@ function publicState(s) {
   };
 }
 
-const PORT = 3001;
-app.listen(PORT, () => console.log(`Flip7 backend running on http://localhost:${PORT}`));
+// Serve the built React app in production
+const distPath = path.join(__dirname, '../../frontend/dist');
+app.use(express.static(distPath));
+app.get('*', (req, res) => res.sendFile(path.join(distPath, 'index.html')));
+
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`Flip7 backend running on port ${PORT}`));

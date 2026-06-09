@@ -1,4 +1,4 @@
-const BASE = 'http://localhost:3001/api/game';
+const BASE = import.meta.env.VITE_API_URL ?? '/api/game';
 
 async function req(path, method = 'GET', body) {
   const res = await fetch(BASE + path, {
