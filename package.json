@@ -2,7 +2,7 @@
   "name": "flip7calculator",
   "version": "1.0.0",
   "scripts": {
-    "build": "cd frontend && npm install && npm run build",
-    "start": "cd backend && node src/server.js"
+    "build": "npm install --prefix backend && npm install --prefix frontend && npm run --prefix frontend build",
+    "start": "node backend/src/server.js"
   }
 }
