@@ -1,0 +1,45 @@
+.tray {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  background: #16213eee;
+  border: 1px solid #e9456066;
+  border-radius: 16px;
+  padding: 12px 20px;
+  box-shadow: 0 8px 32px #00000088, 0 0 0 1px #e9456022;
+  backdrop-filter: blur(8px);
+  white-space: nowrap;
+}
+
+.tray-player {
+  font-size: 0.85rem;
+  color: #aaa;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tray-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.tray-btn {
+  min-width: 90px;
+  padding: 10px 24px;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 10px;
+}
+
+.tray-hit  { background: #e94560; color: #fff; }
+.tray-stay { background: transparent; color: #e0e0e0; border: 2px solid #e9456088; }

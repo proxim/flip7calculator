@@ -1,0 +1,83 @@
+.action-panel {
+  padding: 20px 16px;
+  border-bottom: 1px solid #0f3460;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ap-headline {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #e94560;
+}
+
+.ap-subline {
+  font-size: 0.85rem;
+  color: #aaa;
+  line-height: 1.4;
+}
+
+.ap-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.ap-btn {
+  flex: 1;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+.ap-target-note {
+  font-size: 0.78rem;
+  color: #f39c12;
+}
+
+.ap-deck-info {
+  font-size: 0.82rem;
+  color: #777;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ap-known { color: #5dade2; }
+
+.bust-meter {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bust-meter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.bust-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #888;
+}
+
+.bust-pct {
+  font-size: 1.4rem;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+
+.bust-bar-track {
+  height: 8px;
+  background: #0f3460;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bust-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease, background 0.3s ease;
+}

@@ -1,0 +1,118 @@
+.calculator {
+  padding: 12px 16px;
+  border-bottom: 1px solid #0f3460;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.calc-title {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #555;
+}
+
+/* Recommendation banner */
+.calc-rec {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid;
+}
+.calc-rec-draw  { background: #1a3d2b; border-color: #27ae60; }
+.calc-rec-stop  { background: #3d1a1f; border-color: #e94560; }
+
+.calc-rec-label { font-size: 0.75rem; color: #aaa; text-transform: uppercase; letter-spacing: 0.06em; display: block; }
+.calc-rec-sc    { font-size: 0.65rem; color: #d35400; text-transform: uppercase; letter-spacing: 0.05em; }
+.calc-rec-action {
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.calc-rec-draw  .calc-rec-action { color: #27ae60; }
+.calc-rec-stop  .calc-rec-action { color: #e94560; }
+
+/* Key numbers row */
+.calc-numbers {
+  display: flex;
+  gap: 6px;
+}
+
+.calc-stat {
+  flex: 1;
+  background: #0f1e3a;
+  border-radius: 6px;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.calc-stat-label {
+  font-size: 0.65rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+.calc-stat-value {
+  font-size: 1.05rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Breakdown table */
+.calc-breakdown-title {
+  font-size: 0.72rem;
+  color: #aaa;
+  margin-bottom: 4px;
+}
+
+.calc-zone-rest {
+  color: #555;
+}
+
+.calc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+}
+
+.calc-table th {
+  text-align: left;
+  color: #555;
+  font-weight: 600;
+  padding: 2px 4px;
+  border-bottom: 1px solid #1a2a4a;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+
+.calc-table td {
+  padding: 2px 4px;
+  color: #ccc;
+}
+
+.calc-section-row td {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #444;
+  padding-top: 6px;
+}
+
+.calc-delta { text-align: right; font-variant-numeric: tabular-nums; }
+.calc-delta.pos     { color: #27ae60; }
+.calc-delta.neg     { color: #e94560; }
+.calc-delta.neutral { color: #555; }
+
+.calc-row-bust td   { color: #e94560aa; }
+.calc-row-safe td   { color: #ccc; }
+.calc-row-mod td    { color: #a29bfe; }
+.calc-row-action td { color: #555; }

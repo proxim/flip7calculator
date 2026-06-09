@@ -1,0 +1,98 @@
+.player-card {
+  background: #16213e;
+  border: 2px solid #0f3460;
+  border-radius: 10px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+
+.player-card.is-current { border-color: #27ae60; }
+.player-card.is-drawing { box-shadow: 0 0 16px #27ae6066; }
+
+.player-card.is-target {
+  border-color: #f39c12;
+  cursor: pointer;
+  box-shadow: 0 0 12px #f39c1266;
+}
+.player-card.is-target:hover { box-shadow: 0 0 20px #f39c1299; }
+
+.player-card.status-busted  { opacity: 0.5; border-color: #444; }
+.player-card.status-frozen  { border-color: #5dade2; opacity: 0.8; }
+.player-card.status-stopped { border-color: #e94560; opacity: 0.8; }
+.player-card.status-flip7   { border-color: #f1c40f; box-shadow: 0 0 20px #f1c40f66; }
+
+.pc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pc-name {
+  font-weight: 700;
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pc-status { font-size: 0.72rem; font-weight: 700; padding: 2px 7px; border-radius: 20px; white-space: nowrap; }
+.status-badge-active    { background: #1a3d2b; color: #27ae60; }
+.status-badge-stopped   { background: #3d1a1f; color: #e94560; }
+.status-badge-frozen    { background: #1a5276; color: #5dade2; }
+.status-badge-busted    { background: #444; color: #aaa; }
+.status-badge-flip7     { background: #f1c40f; color: #1a1a2e; }
+
+.pc-score {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.pc-score-est {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #e94560;
+}
+
+.pc-score-label { color: #555; font-size: 0.78rem; }
+
+.pc-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  min-height: 28px;
+}
+
+.pc-empty { color: #555; font-size: 0.8rem; align-self: center; }
+
+.card-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 3px 8px;
+}
+
+.number-chip { background: #0f3460; color: #e0e0e0; min-width: 28px; }
+.mod-chip    { background: #1e8449; color: #fff; }
+.mod-chip.x2 { background: #8e44ad; }
+.sc-chip     { background: #d35400; color: #fff; font-size: 0.75rem; }
+
+.pc-mods { display: flex; flex-wrap: wrap; gap: 5px; min-height: 0; }
+
+.pc-projected { font-size: 0.8rem; color: #888; }
+
+.pc-target-hint {
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+  font-size: 0.72rem;
+  color: #f39c12;
+  font-weight: 700;
+}

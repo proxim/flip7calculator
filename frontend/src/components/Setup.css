@@ -1,0 +1,55 @@
+.setup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.setup-title {
+  font-size: 4rem;
+  font-weight: 900;
+  color: #e94560;
+  letter-spacing: 0.2em;
+  text-shadow: 0 0 30px #e9456088;
+}
+
+.setup-sub {
+  color: #aaa;
+  margin: 8px 0 32px;
+  font-size: 1.05rem;
+}
+
+.setup-card {
+  background: #16213e;
+  border: 1px solid #0f3460;
+  border-radius: 12px;
+  padding: 32px;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.setup-label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.setup-names {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.setup-error {
+  color: #e94560;
+  font-size: 0.9rem;
+}
