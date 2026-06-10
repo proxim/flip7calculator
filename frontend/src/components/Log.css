@@ -38,3 +38,9 @@
   color: #e0e0e0;
   animation: logEntryIn 0.22s ease-out;
 }
+
+@media (max-width: 768px) {
+  .log {
+    max-height: 180px;
+  }
+}

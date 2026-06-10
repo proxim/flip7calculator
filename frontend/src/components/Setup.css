@@ -53,3 +53,13 @@
   color: #e94560;
   font-size: 0.9rem;
 }
+
+@media (max-width: 480px) {
+  .setup-title {
+    font-size: 2.8rem;
+  }
+
+  .setup-card {
+    padding: 20px 16px;
+  }
+}

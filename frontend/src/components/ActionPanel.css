@@ -44,6 +44,12 @@
 
 .ap-known { color: #5dade2; }
 
+@media (max-width: 768px) {
+  .action-panel {
+    padding: 14px 12px;
+  }
+}
+
 .bust-meter {
   display: flex;
   flex-direction: column;

@@ -46,3 +46,36 @@
 .tray-manual { background: transparent; color: #888; border: 2px solid #33456088; font-size: 0.8rem; min-width: 70px; padding: 10px 14px; }
 .tray-manual:hover:not(:disabled) { color: #aaa; border-color: #555; }
 .tray-manual-active { color: #e0e0e0 !important; border-color: #0f3460 !important; background: #0f3460 !important; }
+
+@media (max-width: 768px) {
+  .tray {
+    left: 10px;
+    right: 10px;
+    transform: none;
+    bottom: 10px;
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .tray-player {
+    display: none;
+  }
+
+  .tray-buttons {
+    flex: 1;
+    gap: 8px;
+  }
+
+  .tray-btn {
+    flex: 1;
+    min-width: unset;
+    padding: 14px 10px;
+    font-size: 0.95rem;
+  }
+
+  .tray-manual {
+    min-width: unset;
+    padding: 14px 12px;
+    flex: unset;
+  }
+}

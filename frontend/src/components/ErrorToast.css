@@ -15,7 +15,7 @@
   padding: 10px 16px;
   box-shadow: 0 4px 24px #00000099, 0 0 0 1px #e9456044;
   cursor: pointer;
-  max-width: 420px;
+  max-width: min(420px, calc(100vw - 32px));
 
   animation: toast-in 0.2s ease;
 }
